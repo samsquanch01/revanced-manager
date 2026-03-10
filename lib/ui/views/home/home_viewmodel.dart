@@ -22,6 +22,7 @@ import 'package:revanced_manager/ui/views/navigation/navigation_viewmodel.dart';
 import 'package:revanced_manager/ui/views/patcher/patcher_viewmodel.dart';
 import 'package:revanced_manager/ui/widgets/homeView/update_confirmation_sheet.dart';
 import 'package:revanced_manager/ui/widgets/shared/haptics/haptic_checkbox_list_tile.dart';
+import 'package:revanced_manager/utils/string.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -153,13 +154,7 @@ class HomeViewModel extends BaseViewModel {
     latestPatchesVersion = await _managerAPI.getLatestPatchesVersion();
     if (latestPatchesVersion != null) {
       try {
-        final int latestVersionInt = int.parse(
-          latestPatchesVersion!.replaceAll(RegExp('[^0-9]'), ''),
-        );
-        final int currentVersionInt = int.parse(
-          _currentPatchesVersion.replaceAll(RegExp('[^0-9]'), ''),
-        );
-        return latestVersionInt > currentVersionInt;
+        return isNewerVersion(latestPatchesVersion!, _currentPatchesVersion);
       } on Exception catch (e) {
         if (kDebugMode) {
           print(e);

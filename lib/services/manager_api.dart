@@ -568,6 +568,7 @@ class ManagerAPI {
           await getLatestPatchesVersion() ?? '0.0.0';
       if (patchesVersion != newPatchesVersion && newPatchesVersion != '0.0.0') {
         await setCurrentPatchesVersion(newPatchesVersion);
+        patchesVersion = newPatchesVersion;
       }
     }
     return patchesVersion!;
