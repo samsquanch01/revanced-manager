@@ -77,6 +77,11 @@ class UpdateConfirmationSheet extends StatelessWidget {
                           ],
                         ),
                       ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(t.cancelButton),
+                      ),
+                      const SizedBox(width: 8.0),
                       FilledButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -90,18 +95,31 @@ class UpdateConfirmationSheet extends StatelessWidget {
                   ),
                 ),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 12.0,
+                padding: EdgeInsets.only(
+                  top: changelog ? 40.0 : 12.0,
                   left: 24.0,
+                  right: changelog ? 8.0 : 24.0,
                   bottom: 12.0,
                 ),
-                child: Text(
-                  t.homeView.updateChangelogTitle,
-                  style: TextStyle(
-                    fontSize: changelog ? 24 : 20,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        t.homeView.updateChangelogTitle,
+                        style: TextStyle(
+                          fontSize: changelog ? 24 : 20,
+                          fontWeight: FontWeight.w500,
+                          color:
+                              Theme.of(context).colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                    ),
+                    if (changelog)
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                  ],
                 ),
               ),
               FutureBuilder<String?>(
